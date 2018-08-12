@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!--shiro过滤器工厂bean 相当于间接地加载了9个内置的过滤器  -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean" depends-on="erpAuthorizationFilter">
+		<!--安全管理器：核心组件  -->
+		<property name="securityManager" ref="securityManager" />
+		<!-- 认证相关的配置 用户必须登录才可访问其他的资源 -->
+		<property name="loginUrl" value="/login.html" />
+		<!--授权相关配置 当用户没有访问某个没有访问权限的资源 没有登录就跳转其他登录页面  -->
+		<property name="unauthorizedUrl" value="/error.html" />
+		
+		 <property name="filters">
+			<map>
+				<entry key="perms" value-ref="erpAuthorizationFilter"></entry>
+			</map>
+		</property> 
+		
+		<!--过滤器链的定义 用来配置页面的访问规则  
+			告诉shiro 什么资源有什么权限才可以访问
+		
+		-->
+		<property name="filterChainDefinitions">
+			<value>
+				/error.html = anon
+				/login_*.action = anon
+				/login_*=anon
+				
+				/dep_*=perms["部门"]
+				/supplier.html=perms["供应商","客户"]
+				/supplier_*=perms["供应商","客户"]
+				/role.html=perms["角色设置"]
+				/role_*=perms["角色设置","角色权限设置"]
+				/emp.html=perms["员工"]
+				/emp_*=perms["用户角色设置","重置密码"]
+				/goodstype.html=perms["商品类型"]
+				/goodstype_*=perms["商品类型"]
+				/goods.html=perms["商品"]
+				/goods_*=perms["商品"]
+				/store.html=perms["仓库"]
+				/store_*=perms["仓库"]
+				/dep.html=perms["部门"]
+				/dep_*=perms["部门"]
+				/orders.html=perms["我的采购订单","采购订单申请","采购订单查询","采购订单审核","采购订单确认","采购订单入库","销售订单查询","销售订单录入","销售订单出库"]
+				/orders_*=perms["我的采购订单","采购订单申请","采购订单查询","采购订单审核","采购订单确认","采购订单入库","销售订单查询","销售订单录入","销售订单出库"]
+				/report_order.html=perms["销售统计报表"]
+				/report_*=perms["销售统计报表","销售趋势报表"]
+				/report_trend.html=perms["销售趋势报表"]
+				
+				/*.html = authc
+				/*.action=authc
+				/*=authc
+			</value>
+		</property>
+	</bean>
+
+	<!--安全管理器 核心组件（大脑）  -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="erpRealm"></property>
+	</bean>
+
+	<bean id="erpRealm" class="com.itcast.erp.realm.ErpRealm">
+		<property name="empBiz" ref="empBiz"></property>
+		<property name="menuBiz" ref="menuBiz"></property>
+	</bean>
+	  
+	<bean id="erpAuthorizationFilter" class="com.itcast.erp.filter.ErpAuthorizationFilter"></bean>
+	
+</beans>

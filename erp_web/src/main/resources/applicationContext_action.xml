@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop.xsd
+		">  
+	<bean id="depAction" class="com.itcast.erp.action.DepAction" scope="prototype">
+		<property name="depBiz" ref="depBiz"></property>
+	</bean>
+
+	<bean id="empAction" class="com.itcast.erp.action.EmpAction" scope="prototype">
+		<property name="empBiz" ref="empBiz"></property>
+	</bean>
+	
+	<bean id="goodsAction" class="com.itcast.erp.action.GoodsAction" scope="prototype">
+		<property name="goodsBiz" ref="goodsBiz"></property>
+	</bean>
+	
+	<bean id="goodstypeAction" class="com.itcast.erp.action.GoodstypeAction" scope="prototype">
+		<property name="goodstypeBiz" ref="goodstypeBiz"></property>
+	</bean>
+	
+	<!--这个action和其他的不太一样   但还是依赖 EmpService 层的-->
+	<bean id="loginAction" class="com.itcast.erp.action.LoginAction" scope="prototype">
+		
+	</bean>
+	
+	<bean id="menuAction" class="com.itcast.erp.action.MenuAction" scope="prototype">
+		<property name="menuBiz" ref="menuBiz"></property>
+	</bean>
+	
+	<bean id="supplierAction" class="com.itcast.erp.action.SupplierAction" scope="prototype">
+		<property name="supplierBiz" ref="supplierBiz"></property>
+	</bean>
+	
+	<bean id="ordersAction" class="com.itcast.erp.action.OrdersAction" scope="prototype">
+		<property name="ordersBiz" ref="ordersBiz"></property>
+	
+	</bean>
+	<bean id="orderdetailAction" class="com.itcast.erp.action.OrderdetailAction" scope="prototype">
+		<property name="orderdetailBiz" ref="orderdetailBiz"></property>
+	</bean>
+	
+	<bean id="storeAction" class="com.itcast.erp.action.StoreAction" scope="prototype">
+		<property name="storeBiz" ref="storeBiz"></property>
+	</bean>
+	
+	<bean id="storedetailAction" class="com.itcast.erp.action.StoredetailAction" scope="prototype">
+		<property name="storedetailBiz" ref="storedetailBiz"></property>
+	</bean>
+	
+	<bean id="storeoperAction" class="com.itcast.erp.action.StoreoperAction" scope="prototype">
+		<property name="storeoperBiz" ref="storeoperBiz"></property>
+	</bean>
+	
+	<bean id="reportAction" class="com.itcast.erp.action.ReportAction" scope="prototype">
+		<property name="reportBiz" ref="reportBiz"></property>
+	</bean>
+	
+	<bean id="roleAction" class="com.itcast.erp.action.RoleAction" scope="prototype">
+		<property name="roleBiz" ref="roleBiz"></property>
+	</bean>
+</beans>
+	

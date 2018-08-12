@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" type="text/css" href="ui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="ui/themes/icon.css">
+<script type="text/javascript" src="ui/jquery.min.js"></script>
+<script type="text/javascript" src="ui/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="ui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="ui/jquery.serializejson.min.js"></script>
+<script type="text/javascript" src="js/crud.js"></script>
+
+<script type="text/javascript">
+	var name="dep";
+	var columns=[[    
+		        {field:'uuid',title:'部门编号',width:100},    
+		        {field:'name',title:'部门名称',width:100},    
+		        {field:'tele',title:'部门电话',width:100,align:'right'},
+		        {field:'-',title:'操作',formatter:function(value,row,index){
+		        	return "<a href='#' onclick='edit("+row.uuid+")'>修改</a>    <a href='#' onclick='dele("+row.uuid+")'>删除</a>";
+		        }}
+		    ]];
+</script>
+</head>
+<body>
+	<form id="searchForm">
+		部门名称：<input name="t1.name">
+		部门电话：<input name="t1.tele">
+		<button id="btnFind" type="button">查询</button>
+	</form>
+<button id="test" onclick="test()">测试</button>
+<br>
+
+<div id="editWindow">
+	<form id="editForm">
+		<table>
+			<tr>
+				<td>部门名称</td>
+				<td><input name="t.name"><input name="t.uuid" type="hidden"/></td>
+			</tr>
+			<tr>
+				<td>部门电话</td>
+				<td><input name="t.tele"></td>
+			</tr>
+		</table>
+		<button id="btnSave" type="button">保存</button>
+	</form>
+</div>	
+
+
+<table id="grid"></table>
+
+	
+</body>
+</html>
